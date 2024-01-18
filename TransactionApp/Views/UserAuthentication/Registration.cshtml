@@ -1,0 +1,77 @@
+﻿@model TransactionApp.Models.DTO.RegistrationModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="~/css/auth.css" />
+</head>
+<body>
+    <div class="auth-box">
+        <h2>Registration</h2>
+        <form asp-action="Registration" method="post">
+            <div class="user-box">
+                <input type="text" asp-for="FirstName" required="">
+                <label asp-for="FirstName"><b>First Name</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="FirstName"></span>
+                </div>
+            </div>
+
+            <div class="user-box">
+                <input type="text" asp-for="LastName" required="">
+                <label asp-for="LastName"><b>Last Name</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="LastName"></span>
+                </div>
+            </div>
+
+            <div class="user-box">
+                <input type="text" asp-for="Email" required="">
+                <label asp-for="Email"><b>Email</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="Email"></span>
+                </div>
+            </div>
+
+            <div class="user-box">
+                <input type="text" asp-for="Username" required="">
+                <label asp-for="Username"><b>Username</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="Username"></span>
+                </div>
+            </div>
+
+            <div class="user-box">
+                <input type="password" asp-for="Password" required="">
+                <label asp-for="Password"><b>Password (eg. John@123)</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="Password"></span>
+                </div>
+            </div>
+
+            <div class="user-box">
+                <input type="password" asp-for="PasswordConfirm" required="">
+                <label asp-for="PasswordConfirm"><b>Password Confirm</b></label>
+                <div class="msg">
+                    <span class="err" asp-validation-for="PasswordConfirm"></span>
+                </div>
+            </div>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class="msg">
+                    <span class="text-info">@TempData["msg"]</span>
+                </div>
+            }
+
+            <button type="submit">Registration</button>
+            <a class="text-alert" href="/UserAuthentication/Login">Already a user? Login</a>
+        </form>
+    </div>
+</body>
+</html>

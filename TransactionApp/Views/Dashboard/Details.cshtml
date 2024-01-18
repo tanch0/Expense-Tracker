@@ -1,0 +1,36 @@
+﻿@model TransactionApp.Models.Domain.Transaction
+
+<h2>Transaction Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Transaction ID</dt>
+        <dd class="col-sm-10">@Model.TransactionId</dd>
+
+        <dt class="col-sm-2">User ID</dt>
+        <dd class="col-sm-10">@Model.UserId</dd>
+
+        <dt class="col-sm-2">Transaction Name</dt>
+        <dd class="col-sm-10">@Model.TransactionName</dd>
+
+        <dt class="col-sm-2">Transaction Type</dt>
+        <dd class="col-sm-10">@Model.TransactionType</dd>
+
+        <dt class="col-sm-2">Transaction Description</dt>
+        <dd class="col-sm-10">@Model.TransactionDescription</dd>
+
+        <dt class="col-sm-2">Transaction Amount</dt>
+        <dd class="col-sm-10">@Model.TransactionAmount</dd>
+
+        <dt class="col-sm-2">Created DateTime</dt>
+        <dd class="col-sm-10">@Model.CreatedDateTime</dd>
+
+        <dt class="col-sm-2">Edited DateTime</dt>
+        <dd class="col-sm-10">@Model.EditedDateTime</dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

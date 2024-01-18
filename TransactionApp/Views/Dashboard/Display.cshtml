@@ -1,0 +1,142 @@
+﻿@using TransactionApp.FilterModel
+@model FilterPeriod;
+
+@{
+    string username = User.Identity.Name;
+}
+
+
+<div>
+    @username Transaction in Graphical diagram
+</div>
+
+<div>
+    <button id="barChartBtn">Bar Chart</button>
+    <button id="pieChartBtn">Pie Chart</button>  
+        <select id="period" name="period">
+            <option selected>Daily</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+            <option>Quarterly</option>
+            <option>Yearly</option>
+        </select>
+        <button id="filterbtn" class="btn btn-primary">Filter</button>
+</div>
+
+
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <canvas id="barChart" style="width: 100%; height: 400px;"></canvas>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <canvas id="pieChart" style="width: 100%; height: 400px;"></canvas>
+        </div>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Fetch data from the API and create both charts initially
+    fetch('/Dashboard/ChartData')
+        .then(response => response.json())
+        .then(data => {
+            var barCtx = document.getElementById('barChart').getContext('2d');
+            var pieCtx = document.getElementById('pieChart').getContext('2d');
+
+            var barChart = createBarChart(barCtx, data);
+            var pieChart = createPieChart(pieCtx, data);
+
+            // Event listener for the Bar Chart button
+            document.getElementById('barChartBtn').addEventListener('click', function () {
+                barChart.destroy(); // Destroy the existing bar chart
+                barChart = createBarChart(barCtx, data);
+            });
+
+            // Event listener for the Pie Chart button
+            document.getElementById('pieChartBtn').addEventListener('click', function () {
+                pieChart.destroy(); // Destroy the existing pie chart
+                pieChart = createPieChart(pieCtx, data);
+            });
+            document.getElementById('filterbtn').addEventListener('click', function () {
+                let period = document.getElementById("period").value;
+                let url = '/Dashboard/FilterData?period=' + period;
+                // Fetch data from the API and create both charts initially
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        barChart.destroy(); // Destroy the existing bar chart
+                        barChart = createBarChart(barCtx, data);
+                        pieChart.destroy(); // Destroy the existing pie chart
+                        pieChart = createPieChart(pieCtx, data);
+                    });
+            });
+        });
+
+    // Function to create a bar chart
+    function createBarChart(ctx, data) {
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Total Transaction Amount',
+                    data: data.datasets[0].data,
+                    backgroundColor: getBarColors(data.labels.length),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Function to create a pie chart
+    function createPieChart(ctx, data) {
+        return new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Total Transaction Amount',
+                    data: data.datasets[0].data,
+                    backgroundColor: getPieColors(data.labels.length),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Function to generate random colors for bar chart
+    function getBarColors(length) {
+        var colors = [];
+        for (var i = 0; i < length; i++) {
+            colors.push('rgba(' + getRandomInt(0, 255) + ',' + getRandomInt(0, 255) + ',' + getRandomInt(0, 255) + ', 0.2)');
+        }
+        return colors;
+    }
+
+    // Function to generate random colors for pie chart
+    function getPieColors(length) {
+        var colors = [];
+        for (var i = 0; i < length; i++) {
+            colors.push('rgba(' + getRandomInt(0, 255) + ',' + getRandomInt(0, 255) + ',' + getRandomInt(0, 255) + ', 0.2)');
+        }
+        return colors;
+    }
+
+    // Function to get a random integer within a range
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+</script>

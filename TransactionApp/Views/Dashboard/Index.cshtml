@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TransactionApp.Models.Domain.Transaction>
+
+<h2>Transaction List</h2>
+
+<p>
+    <a asp-controller="dashboard" asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Transaction Name</th>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">Transaction Description</th>
+            <th scope="col">Transaction Amount</th>
+            <th scope="col">Created DateTime</th>
+            <th scope ="col">Edited DateTime</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr class="table-active">
+                <td>@transaction.TransactionName</td>
+                <td>@(transaction.TransactionType ? "Income" : "Expense")</td>
+                <td>@transaction.TransactionDescription</td>
+                <td>@transaction.TransactionAmount</td>
+                <td>@transaction.CreatedDateTime</td>
+                <td>@transaction.EditedDateTime</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@transaction.TransactionId">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@transaction.TransactionId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@transaction.TransactionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

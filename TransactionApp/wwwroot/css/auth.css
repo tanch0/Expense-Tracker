@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    background: url('login.jpg');
+    opacity: 90%;
+}
+
+.auth-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+    .auth-box h2 {
+        margin: 0 0 30px;
+        padding: 0;
+        color: black;
+        text-align: center;
+    }
+
+.user-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+    .user-box input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #302d2d;
+        border: none;
+        border-bottom: 1px solid gray;
+        outline: none;
+        background: transparent;
+    }
+
+    .user-box label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 0;
+        font-size: 16px;
+        color: gray;
+        pointer-events: none;
+        transition: 0.5s;
+    }
+
+    .user-box input:focus ~ label,
+    .user-box input:valid ~ label {
+        top: -20px;
+        left: 0;
+        color: #333;
+        font-size: 12px;
+    }
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+    .remember-me input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+button[type="submit"] {
+    background: rgb(24, 139, 24);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}

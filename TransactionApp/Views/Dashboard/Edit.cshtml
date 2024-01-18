@@ -1,0 +1,41 @@
+﻿@model TransactionApp.Models.Domain.Transaction
+
+<h2>Edit Transaction</h2>
+
+<form asp-controller="dashboard" asp-action="Edit" method="post">
+    <input asp-for="TransactionId" type="hidden" class="form-control" />
+    <input asp-for="UserId" type="hidden" class="form-control" />
+    <input asp-for="CreatedDateTime" type="hidden" class="form-control" />
+    <div class="form-group">
+        <label asp-for="TransactionName"></label>
+        <input asp-for="TransactionName" class="form-control" />
+        <span asp-validation-for="TransactionName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TransactionType"></label>
+        <select asp-for="TransactionType" class="form-control">
+            <option value="true">Income</option>
+            <option value="false">Expense</option>
+        </select>
+        <span asp-validation-for="TransactionType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TransactionDescription"></label>
+        <textarea asp-for="TransactionDescription" class="form-control"></textarea>
+        <span asp-validation-for="TransactionDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TransactionAmount"></label>
+        <input asp-for="TransactionAmount" class="form-control" />
+        <span asp-validation-for="TransactionAmount" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
